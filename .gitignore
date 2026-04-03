@@ -1,0 +1,23 @@
+# Environnement virtuel
+env/
+
+.env
+
+# Fichiers Python compilés
+__pycache__/
+*.pyc
+
+# Base de données locale
+db.sqlite3
+
+# Fichiers de l’IDE (PyCharm, VSCode)
+.idea/
+.vscode/
+
+
+# Fichiers temporaires
+\env
+\.idea
+\.env
+
+.venv/
