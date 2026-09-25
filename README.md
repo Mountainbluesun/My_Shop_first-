@@ -1,34 +1,41 @@
 🌿 The Nature Shop
-Une application e-commerce robuste construite avec Django 5.1, mettant en œuvre un système d'authentification personnalisé et une intégration complète du tunnel de paiement Stripe.
 
-🚀 Fonctionnalités clés
-Authentification Personnalisée : Utilisation d'un modèle Shopper basé sur l'email comme identifiant unique (au lieu du username classique).
+A robust e-commerce application built with Django 5.1, featuring a custom authentication system and full Stripe checkout integration.
 
-Gestion du Panier : Ajout, modification et suppression d'articles en temps réel.
+🚀 Key Features
 
-Intégration Stripe : Tunnel de paiement sécurisé avec gestion des sessions de checkout et pages de succès/annulation.
+**Custom Authentication:** Uses a Shopper model based on email as the unique identifier (instead of the classic username).
 
-Architecture Propre : Séparation claire entre la logique métier (boutique), l'authentification (accounts) et la configuration globale.
+**Cart Management:** Add, update, and remove items in real time.
 
-## 📸 Aperçu du projet
+**Stripe Integration:** Secure checkout flow with checkout session handling and success/cancel pages.
 
-### Le Panier & Catalogue
-![Panier et Articles](screenshots/screenshot_cart_anonyme.png)
+**Clean Architecture:** Clear separation between business logic (store), authentication (accounts), and global configuration.
 
-### Paiement Sécurisé via Stripe
-![Interface Stripe](screenshots/fictitious_Stripe_payment_history.png)
+## 📸 Project Preview
 
-### Confirmation de Commande
-![Succès du paiement](screenshots/screenshot_success_anonyme.png)
+### Cart & Catalog
 
-### Log du terminal
-![log sucess](screenshots/Log_terminal_checkout_session_ok.png)
+[![Cart and Items](https://github.com/Mountainbluesun/My_Shop_first-/raw/main/screenshots/screenshot_cart_anonyme.png)](/Mountainbluesun/My_Shop_first-/blob/main/screenshots/screenshot_cart_anonyme.png)
 
-🛠️ Stack Technique
-Framework : Django 5.1.4
+### Secure Payment via Stripe
 
-Base de données : SQLite (parfait pour le développement et la démo)
+[![Stripe Interface](https://github.com/Mountainbluesun/My_Shop_first-/raw/main/screenshots/fictitious_Stripe_payment_history.png)](/Mountainbluesun/My_Shop_first-/blob/main/screenshots/fictitious_Stripe_payment_history.png)
 
-Paiement : Stripe API (python-stripe)
+### Order Confirmation
 
-Environnement : Python 3.12 + Virtualenv
+[![Payment Success](https://github.com/Mountainbluesun/My_Shop_first-/raw/main/screenshots/screenshot_success_anonyme.png)](/Mountainbluesun/My_Shop_first-/blob/main/screenshots/screenshot_success_anonyme.png)
+
+### Terminal Log
+
+[![Success log](https://github.com/Mountainbluesun/My_Shop_first-/raw/main/screenshots/Log_terminal_checkout_session_ok.png)](/Mountainbluesun/My_Shop_first-/blob/main/screenshots/Log_terminal_checkout_session_ok.png)
+
+🛠️ Tech Stack
+
+**Framework:** Django 5.1.4
+
+**Database:** SQLite (ideal for development and demo purposes)
+
+**Payments:** Stripe API (python-stripe)
+
+**Environment:** Python 3.12 + Virtualenv

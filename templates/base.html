@@ -1,27 +1,28 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>The nature shop</title>
+    <title>{% trans "The nature shop" %}</title>
 </head>
 <body>
 
 <a href="{% url 'index' %}">
-    <h1>The nature shop</h1>
+    <h1>{% trans "The nature shop" %}</h1>
 </a>
 
 {% if user.is_authenticated %}
    {{ user.email }}
-<a href="{% url 'accounts:profile' %}">My profile</a>
-<a href="{% url 'accounts:logout' %}">Disconnect</a>
+<a href="{% url 'accounts:profile' %}">{% trans "My profile" %}</a>
+<a href="{% url 'accounts:logout' %}">{% trans "Disconnect" %}</a>
 {% else %}
-   <a href="{% url 'accounts:login' %}">Connection</a>
-   <a href="{% url 'accounts:signup' %}">Inscription</a>
+   <a href="{% url 'accounts:login' %}">{% trans "Log in" %}</a>
+   <a href="{% url 'accounts:signup' %}">{% trans "Sign up" %}</a>
 {% endif %}
 
 {% if user.cart %}
   <p>
-      <a href="{% url 'store:cart' %}">View Cart ({{ user.cart.orders.count }})</a>
+      <a href="{% url 'store:cart' %}">{% blocktrans with counter=user.cart.orders.count %}View Cart ({{ counter }}){% endblocktrans %}</a>
   </p>
       {% endif %}
 
@@ -31,3 +32,4 @@
 
 </body>
 </html>
+

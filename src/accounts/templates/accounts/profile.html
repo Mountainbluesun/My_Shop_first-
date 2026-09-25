@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 
@@ -14,10 +15,10 @@
          </ul>
       {% endif %}
 
-      <button type="submit">backup</button>
+      <button type="submit">{% trans "Save" %}</button>
 </form>
-{% if addresse %}
-    <h1>Delivery addresses</h1>
+{% if addresses %}
+    <h1>{% trans "Delivery addresses" %}</h1>
 {% endif %}
 
 {% for address in addresses %}

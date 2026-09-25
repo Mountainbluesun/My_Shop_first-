@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 
@@ -8,20 +9,19 @@
     {% for form in forms %}
     <div>
         <h3>{{ form.instance.product.name }}</h3>
-        <img src="{{ form.instance.product.thumbnail_url }}" alt="Product image" style="max-width: 250px;">
+        <img src="{{ form.instance.product.thumbnail_url }}" alt="{% trans "Product image" %}" style="max-width: 250px;">
         <p>{{ form.instance.product.description }}</p>
         {{ form.as_p }}
     </div>
     {% endfor %}
-    <button> type="submit">Update the quantity</button>
+    <button> type="submit">{% trans "Update the quantity" %}</button>
 </form>
 
 <form action="{% url 'store:create-checkout-session' %}" method="POST">
     {% csrf_token %}
-    <button type="submit">Proceed to Payment</button>
+    <button type="submit">{% trans "Proceed to Payment" %}</button>
 </form>
-<a href="{% url 'store:delete-cart' %}">Delete the cart</a>
+<a href="{% url 'store:delete-cart' %}">{% trans "Delete the cart" %}</a>
 
 
 {% endblock %}
-

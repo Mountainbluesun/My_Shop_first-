@@ -1,5 +1,6 @@
+{% load i18n %}
 <div>
-    <h3>{{ address.name }} {% if address.default %} - default{% endif %}</h3>
+    <h3>{{ address.name }} {% if address.default %} - {% trans "default" %}{% endif %}</h3>
 
 
     <p>
@@ -19,12 +20,12 @@
 
      {% if not address.default %}
      <a href="{% url 'accounts:set-default-shipping' address.pk %}">
-          Set as default
+          {% trans "Set as default" %}
      </a>
      {% endif %}
 
     <p>
-        <a href="{% url 'accounts:delete-address' address.pk %}">Address Delete</a>
+        <a href="{% url 'accounts:delete-address' address.pk %}">{% trans "Address Delete" %}</a>
     </p>
 
 </div>

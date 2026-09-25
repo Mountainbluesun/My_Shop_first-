@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 
@@ -6,12 +7,12 @@
    <h3>{{ product.price }}$</h3>
    <img src="{{ product.thumbnail_url }}" alt="{{ product.name }}" style="max-width: 250px;">
    <p>{{ product.description }}</p>
-   <p>{{ product.stock }} in stock</p>
+   <p>{% blocktrans with counter=product.stock %}{{ counter }} in stock{% endblocktrans %}</p>
 
 {% if user.is_authenticated %}
 <p>
       <a href="{% url 'store:add-to-cart' product.slug %}">
-         Add to basket
+         {% trans "Add to basket" %}
       </a>
 </p>
 {% endif %}

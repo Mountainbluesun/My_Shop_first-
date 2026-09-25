@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 
-    <h1>Your payment has been accepted</h1>
+    <h1>{% trans "Your payment has been accepted" %}</h1>
 
-   <p>You will receive your items within 2 weeks</p>
+   <p>{% trans "You will receive your items within 2 weeks" %}</p>
 
 {% endblock %}
