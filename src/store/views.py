@@ -114,8 +114,12 @@ def create_checkout_session(request):
     # return redirect(session.url, code=303)
 
 
+@login_required
 def checkout_success(request):
-    # On vide le panier ici car le webhook ne nous atteint pas en local
+    # Empty the cart here because the webhook can't reach us locally
+    cart = Cart.objects.filter(user=request.user).first()
+    if cart:
+        cart.delete()
     return render(request, 'store/success.html')
 
 
