@@ -80,7 +80,7 @@ def create_checkout_session(request):
                    "quantity": order.quantity} for order in cart.orders.all()]
 
     checkout_data = {
-        "locale": 'fr',
+        "locale": 'en',
         "payment_method_types": ['card'],
         "line_items": line_items,
         "mode": 'payment',
