@@ -1,41 +1,71 @@
-🌿 The Nature Shop
+# The Nature Shop
 
-A robust e-commerce application built with Django 5.1, featuring a custom authentication system and full Stripe checkout integration.
+![Tests](https://github.com/Mountainbluesun/My_Shop_first-/actions/workflows/tests.yml/badge.svg)
 
-🚀 Key Features
+A small e-commerce demo built with Django 5.2: email-based authentication, a shopping cart, and a Stripe Checkout payment flow.
 
-**Custom Authentication:** Uses a Shopper model based on email as the unique identifier (instead of the classic username).
+## Features
 
-**Cart Management:** Add, update, and remove items in real time.
+- **Email authentication:** a custom `Shopper` user model that logs in with an email address instead of a username.
+- **Shopping cart:** add products, change quantities, and remove items.
+- **Shipping addresses:** each user can save and manage delivery addresses.
+- **Stripe Checkout:** hosted payment page created from the cart, with success and cancel pages. The cart is emptied after a successful payment.
+- **Tests and CI:** pytest tests, run automatically by GitHub Actions on every push.
 
-**Stripe Integration:** Secure checkout flow with checkout session handling and success/cancel pages.
+## Screenshots
 
-**Clean Architecture:** Clear separation between business logic (store), authentication (accounts), and global configuration.
+### Cart
 
-## 📸 Project Preview
+[![Cart](screenshots/screenshot_cart_anonyme.png)](screenshots/screenshot_cart_anonyme.png)
 
-### Cart & Catalog
+### Order confirmation
 
-[![Cart and Items](https://github.com/Mountainbluesun/My_Shop_first-/raw/main/screenshots/screenshot_cart_anonyme.png)](/Mountainbluesun/My_Shop_first-/blob/main/screenshots/screenshot_cart_anonyme.png)
+[![Order confirmation](screenshots/screenshot_success_anonyme.png)](screenshots/screenshot_success_anonyme.png)
 
-### Secure Payment via Stripe
+## Tech stack
 
-[![Stripe Interface](https://github.com/Mountainbluesun/My_Shop_first-/raw/main/screenshots/fictitious_Stripe_payment_history.png)](/Mountainbluesun/My_Shop_first-/blob/main/screenshots/fictitious_Stripe_payment_history.png)
+- Python 3.12
+- Django 5.2
+- SQLite
+- Stripe API (`stripe` Python package)
+- Pillow, django-environ, iso3166
+- pytest and pytest-django
 
-### Order Confirmation
+## Getting started
 
-[![Payment Success](https://github.com/Mountainbluesun/My_Shop_first-/raw/main/screenshots/screenshot_success_anonyme.png)](/Mountainbluesun/My_Shop_first-/blob/main/screenshots/screenshot_success_anonyme.png)
+```bash
+git clone https://github.com/Mountainbluesun/My_Shop_first-.git
+cd My_Shop_first-
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+```
 
-### Terminal Log
+Open `.env` and fill in your own values:
 
-[![Success log](https://github.com/Mountainbluesun/My_Shop_first-/raw/main/screenshots/Log_terminal_checkout_session_ok.png)](/Mountainbluesun/My_Shop_first-/blob/main/screenshots/Log_terminal_checkout_session_ok.png)
+- `SECRET_KEY`: any long random string
+- `STRIPE_API_KEY`: a secret key from your Stripe account (test mode)
+- `ENDPOINT_SECRET`: a Stripe webhook signing secret
 
-🛠️ Tech Stack
+Then create the database and start the server:
 
-**Framework:** Django 5.1.4
+```bash
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
+```
 
-**Database:** SQLite (ideal for development and demo purposes)
+Create your products in the Django admin at `/admin/`. Each product needs the ID of a Stripe price (`price_...`) created in your Stripe dashboard, otherwise checkout cannot bill it.
 
-**Payments:** Stripe API (python-stripe)
+## Running the tests
 
-**Environment:** Python 3.12 + Virtualenv
+```bash
+pip install pytest pytest-django
+pytest
+```
+
+## Limitations
+
+- Demo project: Stripe runs in test mode only, with SQLite as the database.
+- Orders are finalised on the success page, because Stripe webhooks cannot reach a local development server.
