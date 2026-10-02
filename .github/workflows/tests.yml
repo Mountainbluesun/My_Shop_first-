@@ -1,0 +1,21 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    env:
+      SECRET_KEY: ci-only-not-a-real-secret
+      STRIPE_API_KEY: sk_test_dummy
+      ENDPOINT_SECRET: whsec_dummy
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt pytest pytest-django
+      - run: pytest
