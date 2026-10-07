@@ -1,12 +1,9 @@
-from pprint import pprint
-
 import stripe
 from django.contrib.auth.decorators import login_required
 from django.forms import modelformset_factory
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
 from accounts.models import Shopper, ShippingAddress
@@ -108,7 +105,9 @@ def delete_cart(request):
 @csrf_exempt
 def stripe_webhook(request):
         payload = request.body
-        sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+        sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
+        if not sig_header:
+            return HttpResponse(status=400)
         endpoint_secret = settings.ENDPOINT_SECRET
         event = None
 
@@ -139,17 +138,11 @@ def stripe_webhook(request):
 
 def complete_order(data, user):
     user.stripe_id = data['customer']
+    user.save()
 
-    if hasattr(user, 'cart'):
-        user.cart.delete()
-        print("✅ Panier supprimé après paiement")
-    else:
-        print("⚠️ Aucun panier trouvé à supprimer")
-
-    #user.save()
-    user.cart.delete()
-    #user.cart.save()
-    return HttpResponse(status=200)
+    cart = Cart.objects.filter(user=user).first()
+    if cart:
+        cart.delete()
 
 
 def save_shipping_address(data, user):
