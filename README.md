@@ -65,8 +65,13 @@ pip install pytest pytest-django
 pytest
 ```
 
+## Payments and webhooks
+
+- Payment is verified when the customer returns to the success page: the server retrieves the Stripe Checkout Session and only empties the cart if the session is paid and belongs to the logged-in user.
+- A Stripe webhook endpoint (`/boutique/stripe-webhook/`) also finalises the order when `checkout.session.completed` is received. It verifies the Stripe signature, saves the Stripe customer ID and the shipping address, and empties the cart.
+- To receive webhooks on a local server, use the Stripe CLI: `stripe listen --forward-to localhost:8000/boutique/stripe-webhook/`. It prints the signing secret to put in `ENDPOINT_SECRET`.
+- The webhook is covered by automated tests that simulate Stripe, but it has not been exercised against a real Stripe event stream.
+
 ## Limitations
 
 - Demo project: Stripe runs in test mode only, with SQLite as the database.
-- Payment is verified when the customer returns to the success page: the server retrieves the Stripe Checkout Session and only finalises the order if it is paid and belongs to the logged-in user. If the customer closes the browser before returning, the order is not finalised, because no webhook handler is implemented. A production version should finalise orders from a Stripe webhook (the `ENDPOINT_SECRET` setting is already in place for it).
-- Stripe webhooks cannot reach a local development server, so they are not used here.
