@@ -68,5 +68,5 @@ pytest
 ## Limitations
 
 - Demo project: Stripe runs in test mode only, with SQLite as the database.
-- Payment is not verified on the server. The success page empties the cart and marks the orders as paid for any logged-in user who opens it, without checking the Stripe session. A production version should confirm payment through a Stripe webhook (the `ENDPOINT_SECRET` setting is already in place for it) or by retrieving the Checkout Session before finalising the order.
+- Payment is verified when the customer returns to the success page: the server retrieves the Stripe Checkout Session and only finalises the order if it is paid and belongs to the logged-in user. If the customer closes the browser before returning, the order is not finalised, because no webhook handler is implemented. A production version should finalise orders from a Stripe webhook (the `ENDPOINT_SECRET` setting is already in place for it).
 - Stripe webhooks cannot reach a local development server, so they are not used here.
