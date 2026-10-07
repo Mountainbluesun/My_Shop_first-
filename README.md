@@ -68,4 +68,5 @@ pytest
 ## Limitations
 
 - Demo project: Stripe runs in test mode only, with SQLite as the database.
-- Orders are finalised on the success page, because Stripe webhooks cannot reach a local development server.
+- Payment is not verified on the server. The success page empties the cart and marks the orders as paid for any logged-in user who opens it, without checking the Stripe session. A production version should confirm payment through a Stripe webhook (the `ENDPOINT_SECRET` setting is already in place for it) or by retrieving the Checkout Session before finalising the order.
+- Stripe webhooks cannot reach a local development server, so they are not used here.
