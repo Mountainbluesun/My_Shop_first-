@@ -86,7 +86,9 @@ def create_checkout_session(request):
         "mode": 'payment',
         # "customer_email": request.user.email,
         "shipping_address_collection": {"allowed_countries": ["FR", "US", "CA"]},
-        "success_url": request.build_absolute_uri(reverse('store:checkout-success')),
+        "success_url": request.build_absolute_uri(
+            reverse('store:checkout-success')) + "?session_id={CHECKOUT_SESSION_ID}",
+        "client_reference_id": str(request.user.pk),
         # "cancel_url": 'http://127.0.0.1:8000/',
         "cancel_url": request.build_absolute_uri(reverse('store:cart')),
     }
@@ -116,12 +118,21 @@ def create_checkout_session(request):
 
 @login_required
 def checkout_success(request):
-    # Empty the cart here because the webhook can't reach us locally
-    cart = Cart.objects.filter(user=request.user).first()
-    if cart:
-        cart.delete()
+    session_id = request.GET.get("session_id")
+    if session_id:
+        try:
+            session = stripe.checkout.Session.retrieve(session_id)
+        except stripe.StripeError:
+            session = None
+        if (
+            session
+            and session.payment_status == "paid"
+            and session.client_reference_id == str(request.user.pk)
+        ):
+            cart = Cart.objects.filter(user=request.user).first()
+            if cart:
+                cart.delete()
     return render(request, 'store/success.html')
-
 
 def delete_cart(request):
     if cart := request.user.cart:
