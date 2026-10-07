@@ -53,7 +53,6 @@ def profile(request):
 
         return redirect("accounts:profile")
 
-    #form = UserForm(initial=model_to_dict(request.user, exclude="password"))
     form = UserForm(instance=request.user)
     addresses = request.user.addresses.all()
     return render(request, 'accounts/profile.html', context={"form": form,
