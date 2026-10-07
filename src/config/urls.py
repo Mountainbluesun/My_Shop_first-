@@ -1,7 +1,6 @@
 
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.template.backends import django
 from django.urls import path, include
 
 

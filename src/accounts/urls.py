@@ -1,5 +1,4 @@
 from accounts.views import signup, logout_user, login_user, profile, set_default_shipping_address, delete_address
-from django.contrib.auth import login
 from django.urls import path
 
 app_name = "accounts"
