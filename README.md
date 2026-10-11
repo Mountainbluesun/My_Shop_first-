@@ -10,7 +10,7 @@ A small e-commerce demo built with Django 5.2: email-based authentication, a sho
 - **Shopping cart:** add products, change quantities, and remove items.
 - **Shipping addresses:** each user can save and manage delivery addresses.
 - **Stripe Checkout:** hosted payment page created from the cart, with success and cancel pages. The cart is emptied after a successful payment.
-- **Tests and CI:** pytest tests, run automatically by GitHub Actions on every push.
+- **Tests and CI:** pytest tests and a dependency audit (`pip-audit`), run automatically by GitHub Actions on every push.
 
 ## Screenshots
 
@@ -47,6 +47,8 @@ Open `.env` and fill in your own values:
 - `SECRET_KEY`: any long random string
 - `STRIPE_API_KEY`: a secret key from your Stripe account (test mode)
 - `ENDPOINT_SECRET`: a Stripe webhook signing secret
+- `DEBUG`: `True` for local development. It defaults to `False` when missing, and in that case Django no longer serves the uploaded product images.
+- `ALLOWED_HOSTS` (optional): comma-separated host names. It defaults to `127.0.0.1,localhost`.
 
 Then create the database and start the server:
 
